@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var xhr=null;
+			//判断函数尽量用这一种方法
+			if(typeof window.XMLHttpRequest=="function"){
+				xhr=new XMLHttpRequest("MSXML.XMLHTTP");
+			}else{
+				var xhr=new ActiveXObject("Microsoft.XMLHTTP.6.0");		
+				alert("生快")
+			}
+			
+			//username    password   模拟登录
+			var url="http://www.marrymin.com:8180/Ajax/Post";
+			xhr.onreadystatechange=function() {
+				if(xhr.readyState==4){
+					alert(xhr.responseText);
+				}
+			}
+			
+			xhr.open("POST",url,true);
+			
+			//方式1  Content-Type-->applecation/x-www-form-urlencoded
+			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+			var parameter="";//默认开始是空串
+			var username="username";//key
+			var value1="111";//value
+			
+			//var paraStr="username=111&password=222";
+			
+			//循环调用方法
+			parameter=getParametersString(parameter,username,value1);
+			parameter=getParametersString(parameter,"password","222");
+			
+			
+			//传参
+			xhr.send(parameter);
+				
+				
+				
+				//构建application/x-www-form-urlencoded形式的字符串参数
+				//encodeURIComponent()将字符串转成URL Code格式 
+				function getParametersString(originPara,key,value) {
+					if(originPara.length!=0){
+						originPara+=originPara+"&"+encodeURIComponent(key)+"="+encodeURIComponent(value);
+					}else{
+						originPara+=encodeURIComponent(key)+"="+encodeURIComponent(value);
+					}
+					return originPara;
+				}
+		
+			
+			
+			
+			
+			
+			
+			
+		</script>
+		
+		
+	</body>
+</html>
