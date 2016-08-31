@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+		
+			//定义数据页码
+			var pageIndex=1;
+			 var url="http://www.marrymin.com/LOL/News?item=%E6%9C%80%E6%96%B0&pageIndex=";
+			//监听加载更多按钮，点击 后下载网络数据 
+			var addMore=document.querySelector(".addMore");
+				addMore.onclick=function() {
+				var xhr=new XMLHttpRequest();
+				xhr.onreadystatechange=function  () {
+					if(xhr.readyState==4){
+						//解析数据
+						var arr=JSON.parse(xhr.responseText);
+						for(var i=0;i<arr.length;i++){
+							//获取的每一个数据项
+							var obj=arr[i];
+							//创建Item  并添加到屏幕上
+							var Item=new ListItem(obj.img,obj.title,obj.desc);
+							Item.ListItem();	
+						}
+						//调整加载更多的位置
+					}
+				}
+				xhr.open("GET",url+pageIndex,true);
+				xhr.send(null);
+				pageIndex++;
+			}
+			
+			
+			
+		</script>
+		
+		
+	</body>
+</html>
